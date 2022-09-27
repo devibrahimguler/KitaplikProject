@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "467345964532",
+    "project_id": "kitaplikpro",
+    "storage_bucket": "kitaplikpro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467345964532:android:392d096080aeb107b9cda1",
+        "android_client_info": {
+          "package_name": "com.kitaplikproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467345964532-mgrjrc6o18n00nrco7svjkcdvpahau9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaZv-GkXg1Dc_g5vF_m54o1mpZAvNHDJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467345964532-mgrjrc6o18n00nrco7svjkcdvpahau9m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

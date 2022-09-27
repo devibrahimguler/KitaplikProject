@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSaveMode": "file",
+    "scm.repositories.sortOrder": "discovery time",
+    "breadcrumbs.symbolSortOrder": "type",
+    "explorer.sortOrder": "default"
+}
