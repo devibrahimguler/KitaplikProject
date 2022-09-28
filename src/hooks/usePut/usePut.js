@@ -5,7 +5,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {useState} from 'react';
 
-const usePutGet = () => {
+const usePut = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -49,4 +49,4 @@ const usePutGet = () => {
   return {put, loading, error};
 };
 
-export default usePutGet;
+export default usePut;

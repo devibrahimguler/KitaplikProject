@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import styles from './EditBook.style';
 import {launchImageLibrary} from 'react-native-image-picker';
-import usePutGet from '../../hooks/usePutGet';
+import usePut from '../../hooks/usePut';
 import {Formik} from 'formik';
 
 import Button from '../../components/Button';
@@ -18,7 +18,7 @@ const EditBook = ({navigation}) => {
   const [image, setImage] = useState(
     'https://firebasestorage.googleapis.com/v0/b/kitaplikpro.appspot.com/o/shared%2Fselect-image.png?alt=media&token=026cdd1e-e91a-424d-888b-9f0378902d31',
   );
-  const {put, loading} = usePutGet();
+  const {put, loading} = usePut();
 
   const handleSelectImage = async () => {
     const result = await launchImageLibrary({
