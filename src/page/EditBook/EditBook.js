@@ -43,13 +43,16 @@ const EditBook = ({navigation}) => {
             values.bookName = "";
             values.author="";
             values.type="";
-            navigation.navigate("SharePage");
+            navigation.goBack();
           }
         }
       }
     }
     
   };
+  const toSharePage =()=>{
+    navigation.goBack();
+  }
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity
@@ -81,6 +84,11 @@ const EditBook = ({navigation}) => {
             <Button
               title={'Ekle'}
               onPress={handleSubmit}
+              animating={loading}
+            />
+            <Button
+              title={'Vazgeç'}
+              onPress={toSharePage}
               animating={loading}
             />
           </>
