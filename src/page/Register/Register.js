@@ -30,7 +30,9 @@ const Register = ({navigation}) => {
             var object = {
               imageUrl:
                 'https://firebasestorage.googleapis.com/v0/b/kitaplikpro.appspot.com/o/user%2Fdefault.png?alt=media&token=e271990c-40d1-4123-a66a-7168d90367c0',
-              username: value.usermail.split("@")[0]
+              username: value.usermail.split("@")[0],
+              usershared: 0,
+              favorites: 0,
             };
 
             firestore()

@@ -10,20 +10,20 @@ export default StyleSheet.create({
     },
     body_container: {
         flex: 1,
-        flexDirection: "row",
         justifyContent: "space-between",
         margin :10,
     },
-    inner_container:{
-        borderEndWidth: 2,
-        paddingEnd: 25,
-        alignSelf: "center"
-    },
     image: {
-        width: 170,
-        height: 170,
+        width: 150,
+        height: 150,
         borderRadius: 20,
         alignSelf: "center"
+    },
+    favori:{
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        margin: 5
     },
     title:{
         fontSize: 10,

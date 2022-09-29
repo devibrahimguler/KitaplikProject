@@ -34,7 +34,6 @@ const EditBook = ({navigation}) => {
     }
   };
   const handleSharedBook = (values) => {
-    console.log(values);
     if(values.bookName != ""){
       if(values.author != ""){
         if(values.type != ""){

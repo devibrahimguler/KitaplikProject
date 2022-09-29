@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
 
 import Profile from './page/Profile';
@@ -34,9 +34,22 @@ const MainStack = () => {
         component={ShareStack}
         options={{
           headerShown: false,
+          title: "Home",
+          tabBarIcon: () => {
+            return <Icon name="home" size={26} />;
+          },
         }}
       />
-      <Tab.Screen name="ProfilePage" component={Profile} />
+      <Tab.Screen
+        name="ProfilePage"
+        component={Profile}
+        options={{
+          title: "Profile",
+          tabBarIcon: () => {
+            return <Icon name="account-group" size={26} />;
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -44,12 +57,21 @@ const MainStack = () => {
 const ShareStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="SharePage" component={Share} />
+      <Stack.Screen name="SharePage" component={Share} options={{
+        headerTitle: "KitaplikProject",
+      }}/>
+      <Stack.Screen
+        name="toProfilePage"
+        component={Profile}
+        options={{
+          presentation: 'fullScreenModal',
+        }}
+      />
       <Stack.Screen
         name="EditBookPage"
         component={EditBook}
         options={{
-          headerShown: false,
+          headerTitle: "Share Book",
           presentation: 'fullScreenModal',
         }}
       />
