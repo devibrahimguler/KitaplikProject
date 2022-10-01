@@ -9,20 +9,24 @@ import {
 } from 'react-native';
 import styles from './Profile.style';
 import auth from '@react-native-firebase/auth';
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import useFetch from '../../hooks/useFetch';
 
 import ShareCard from '../../components/card/ShareCard';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { set_id } from "../../contex/userSlience";
 
 const Profile = ({navigation, route}) => {
-  const [getId, setGetId] = useState(auth().currentUser.uid);
+  const curId = useSelector((state) => state.name.toId);
 
+  const dispatch = useDispatch();
   const [selection, setSelection] = useState(true);
-  const {data} = useFetch(null, getId);
-  const {data: sharData} = useFetch('usershared', getId);
-  const {data: favData} = useFetch('favorites', getId);
+  const {data} = useFetch(null, curId);
+  const {data: sharData} = useFetch('usershared', curId);
+  const {data: favData} = useFetch('favorites', curId);
 
   const renderShared = ({item}) => (
     <ShareCard
@@ -58,12 +62,12 @@ const Profile = ({navigation, route}) => {
       });
   };
   const toBack = () => {
+    dispatch(set_id({toId:auth().currentUser.uid}));
     navigation.goBack();
   };
 
-  useEffect(() => {
+  useEffect( () => {
     if(route.name=="toProfilePage") {
-      setGetId(route.params.docId);
       navigation.setOptions({
         headerLeft: () => {
           return (
@@ -74,6 +78,7 @@ const Profile = ({navigation, route}) => {
         },
       });
     }else {
+      dispatch(set_id({toId:auth().currentUser.uid}));
       navigation.setOptions({
         headerRight: () => {
           return (

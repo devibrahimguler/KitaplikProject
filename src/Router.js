@@ -64,6 +64,7 @@ const ShareStack = () => {
         name="toProfilePage"
         component={Profile}
         options={{
+          headerTitle: "Profile",
           presentation: 'fullScreenModal',
         }}
       />
