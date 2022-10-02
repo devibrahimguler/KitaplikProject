@@ -1,8 +1,8 @@
 const TurnBoolean = (col, data, docId) => {
   switch (col) {
     case 'fav':
-      return !data.find(value => {
-        if (value.data().docId == docId) {
+      return !data.some((key) => {
+        if(key.data().docId == docId){
           return true;
         }
       });

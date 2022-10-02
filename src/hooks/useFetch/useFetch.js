@@ -8,13 +8,32 @@ const useFetch = (col, id) => {
 
   const fetch = () => {
     switch (col) {
+      case 'user':
+        firestore()
+          .collection('user')
+          .doc(id)
+          .get()
+          .then(responseData => {
+            setData(responseData.data());
+            if (responseData.data()) {
+              setLoading(false);
+            }
+          })
+          .catch(err => {
+            setError(err.code);
+            setLoading(false);
+          });
+        break;
+
       case 'shared':
         firestore()
           .collection('shared')
           .onSnapshot(
             responseData => {
-              setLoading(false);
               setData(responseData.docs);
+              if (responseData.docs) {
+                setLoading(false);
+              }
             },
             err => {
               setError(err.code);
@@ -29,9 +48,11 @@ const useFetch = (col, id) => {
           .where('userId', '==', id)
           .onSnapshot(
             responseData => {
-              setLoading(false);
               setData(responseData.docs);
               counter(responseData.docs, id, col);
+              if (responseData.docs) {
+                setLoading(false);
+              }
             },
             err => {
               setError(err.code);
@@ -47,9 +68,11 @@ const useFetch = (col, id) => {
           .collection('favorite')
           .onSnapshot(
             responseData => {
-              setLoading(false);
               setData(responseData.docs);
               counter(responseData.docs, id, col);
+              if (responseData.docs) {
+                setLoading(false);
+              }
             },
             err => {
               setError(err.code);
@@ -57,20 +80,6 @@ const useFetch = (col, id) => {
             },
           );
         break;
-
-      default:
-        firestore()
-          .collection('user')
-          .doc(id)
-          .get()
-          .then(responseData => {
-            setLoading(false);
-            setData(responseData.data());
-          })
-          .catch(err => {
-            setError(err.code);
-            setLoading(false);
-          });
     }
   };
 

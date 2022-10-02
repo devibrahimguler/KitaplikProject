@@ -9,10 +9,10 @@ import TurnBoolean from '../../../utilities/TurnBoolean';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {set_id} from '../../../contex/userSlience';
 
-const ShareCard = ({data, navigation, favData, sharData}) => {
+const ShareCard = ({data, navigation, favData}) => {
   const dispatch = useDispatch();
-  const addFavorite = () => {
-    if (TurnBoolean('fav', favData, data.docId)) {
+  const addFavorite = () => {   
+    if (TurnBoolean("fav", favData, data.docId)) {
       firestore()
         .collection('user')
         .doc(auth().currentUser.uid)

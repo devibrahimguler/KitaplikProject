@@ -6,27 +6,43 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import styles from './Profile.style';
 import auth from '@react-native-firebase/auth';
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import useFetch from '../../hooks/useFetch';
 
 import ShareCard from '../../components/card/ShareCard';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { set_id } from "../../contex/userSlience";
+import {set_id} from '../../contex/userSlience';
 
 const Profile = ({navigation, route}) => {
-  const curId = useSelector((state) => state.name.toId);
+  const curId = useSelector(state => state.name.toId);
 
   const dispatch = useDispatch();
   const [selection, setSelection] = useState(true);
-  const {data} = useFetch(null, curId);
-  const {data: sharData} = useFetch('usershared', curId);
-  const {data: favData} = useFetch('favorites', curId);
+
+  const {
+    loading: userLoading,
+    error: userError,
+    data: userData,
+  } = useFetch('user', curId);
+
+  const {
+    loading: sharLoading,
+    error: sharError,
+    data: sharData,
+  } = useFetch('usershared', curId);
+
+  const {
+    loading: favLoading,
+    error: favError,
+    data: favData,
+  } = useFetch('favorites', curId);
 
   const renderShared = ({item}) => (
     <ShareCard
@@ -62,12 +78,12 @@ const Profile = ({navigation, route}) => {
       });
   };
   const toBack = () => {
-    dispatch(set_id({toId:auth().currentUser.uid}));
+    dispatch(set_id({toId: auth().currentUser.uid}));
     navigation.goBack();
   };
 
-  useEffect( () => {
-    if(route.name=="toProfilePage") {
+  useEffect(() => {
+    if (route.name == 'toProfilePage') {
       navigation.setOptions({
         headerLeft: () => {
           return (
@@ -77,8 +93,7 @@ const Profile = ({navigation, route}) => {
           );
         },
       });
-    }else {
-      dispatch(set_id({toId:auth().currentUser.uid}));
+    } else {
       navigation.setOptions({
         headerRight: () => {
           return (
@@ -93,22 +108,32 @@ const Profile = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.inner_container}>
-        <Image style={styles.image} source={{uri: data.imageUrl}} />
-        <View>
-          <Text style={styles.username}>{data.username}</Text>
-          <View style={styles.inner_container}>
-            <View>
-              <Text style={styles.title}>Paylaşılanlar</Text>
-              <Text style={styles.sub_title}>{data.usershared}</Text>
+      {userError ? (
+        <Text>{userError}</Text>
+      ) : (
+        <>
+          {userLoading ? (
+            <ActivityIndicator size={25} />
+          ) : (
+            <View style={styles.inner_container}>
+              <Image style={styles.image} source={{uri: userData.imageUrl}} />
+              <View>
+                <Text style={styles.username}>{userData.username}</Text>
+                <View style={styles.inner_container}>
+                  <View>
+                    <Text style={styles.title}>Paylaşılanlar</Text>
+                    <Text style={styles.sub_title}>{userData.usershared}</Text>
+                  </View>
+                  <View>
+                    <Text style={styles.title}>Favoriler</Text>
+                    <Text style={styles.sub_title}>{userData.favorites}</Text>
+                  </View>
+                </View>
+              </View>
             </View>
-            <View>
-              <Text style={styles.title}>Favoriler</Text>
-              <Text style={styles.sub_title}>{data.favorites}</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+          )}
+        </>
+      )}
       <View style={styles.body_container}>
         <View style={styles.body_inner_container}>
           <View style={styles.body_sparator_paylasim}>
@@ -127,19 +152,43 @@ const Profile = ({navigation, route}) => {
           </View>
         </View>
         {selection ? (
-          <FlatList
-            data={sharData}
-            numColumns={2}
-            renderItem={renderShared}
-            scrollEnabled={true}
-          />
+          <>
+            {sharError ? (
+              <Text>{sharError}</Text>
+            ) : (
+              <>
+                {sharLoading ? (
+                  <ActivityIndicator size={25} />
+                ) : (
+                  <FlatList
+                    data={sharData}
+                    numColumns={2}
+                    renderItem={renderShared}
+                    scrollEnabled={true}
+                  />
+                )}
+              </>
+            )}
+          </>
         ) : (
-          <FlatList
-            data={favData}
-            numColumns={2}
-            renderItem={renderFavorite}
-            scrollEnabled={true}
-          />
+          <>
+            {favError ? (
+              <Text>{favError}</Text>
+            ) : (
+              <>
+                {favLoading ? (
+                  <ActivityIndicator size={25} />
+                ) : (
+                  <FlatList
+                    data={favData}
+                    numColumns={2}
+                    renderItem={renderFavorite}
+                    scrollEnabled={true}
+                  />
+                )}
+              </>
+            )}
+          </>
         )}
       </View>
     </SafeAreaView>

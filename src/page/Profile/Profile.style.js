@@ -40,12 +40,12 @@ export default StyleSheet.create({
     body_container: {
         flex: 1,
         justifyContent: "center",
-        borderTopWidth: 1
     },
     body_inner_container: {
         flexDirection: "row",
         justifyContent: "space-around",
         borderBottomWidth: 1,
+        borderTopWidth: 1,
     },
     body_sparator_paylasim: {
         ...base_style.body_sparator,
