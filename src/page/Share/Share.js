@@ -43,6 +43,9 @@ const Share = ({navigation}) => {
     });
   }, []);
   useEffect(() => {
+    setNewData(data);
+  }, [data]);
+  useEffect(() => {
     setNewData(
       data.filter(value => {
         if(search != "") {

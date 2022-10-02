@@ -14,8 +14,8 @@ const useFetch = (col, id) => {
           .doc(id)
           .get()
           .then(responseData => {
-            setData(responseData.data());
             if (responseData.data()) {
+              setData(responseData.data());
               setLoading(false);
             }
           })
@@ -30,8 +30,8 @@ const useFetch = (col, id) => {
           .collection('shared')
           .onSnapshot(
             responseData => {
-              setData(responseData.docs);
               if (responseData.docs) {
+                setData(responseData.docs);
                 setLoading(false);
               }
             },
@@ -48,9 +48,9 @@ const useFetch = (col, id) => {
           .where('userId', '==', id)
           .onSnapshot(
             responseData => {
-              setData(responseData.docs);
-              counter(responseData.docs, id, col);
               if (responseData.docs) {
+                setData(responseData.docs);
+                counter(responseData.docs, id, col);
                 setLoading(false);
               }
             },
@@ -68,9 +68,9 @@ const useFetch = (col, id) => {
           .collection('favorite')
           .onSnapshot(
             responseData => {
-              setData(responseData.docs);
-              counter(responseData.docs, id, col);
               if (responseData.docs) {
+                setData(responseData.docs);
+                counter(responseData.docs, id, col);
                 setLoading(false);
               }
             },
@@ -97,7 +97,8 @@ const useFetch = (col, id) => {
   useEffect(() => {
     fetch();
   }, []);
-
+  
+  
   return {loading, error, data};
 };
 
