@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import styles from './Profile.style';
 import auth from '@react-native-firebase/auth';
-import {useSelector} from 'react-redux';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import useFetch from '../../hooks/useFetch';
 
@@ -69,17 +68,12 @@ const Profile = ({navigation, route}) => {
     }
   };
 
-  const toLogOut = () => {
-    auth()
-      .signOut()
-      .then(() => {
-        navigation.navigate('EntryScreen');
-        setGetId(null);
-      });
-  };
   const toBack = () => {
     dispatch(set_id({toId: auth().currentUser.uid}));
     navigation.goBack();
+  };
+  const toEditProfile = () => {
+    navigation.navigate('EditProfilePage', userData);
   };
 
   useEffect(() => {
@@ -89,16 +83,6 @@ const Profile = ({navigation, route}) => {
           return (
             <TouchableOpacity style={{marginEnd: 5}} onPress={toBack}>
               <Icon name="arrow-left" size={26} />
-            </TouchableOpacity>
-          );
-        },
-      });
-    } else {
-      navigation.setOptions({
-        headerRight: () => {
-          return (
-            <TouchableOpacity style={{marginEnd: 5}} onPress={toLogOut}>
-              <Icon name="logout-variant" size={26} />
             </TouchableOpacity>
           );
         },
@@ -119,6 +103,7 @@ const Profile = ({navigation, route}) => {
               <Image style={styles.image} source={{uri: userData.imageUrl}} />
               <View>
                 <Text style={styles.username}>{userData.username}</Text>
+                <Button title={"Profile Düzenle"} thema={"tertiary"} onPress={toEditProfile} />
                 <View style={styles.inner_container}>
                   <View>
                     <Text style={styles.title}>Paylaşılanlar</Text>

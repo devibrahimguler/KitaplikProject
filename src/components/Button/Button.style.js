@@ -22,9 +22,17 @@ export default {
         ...base_styles,
     }),
     secondary : StyleSheet.create({
-        ...base_styles,
         container: {
             borderWidth: 0
+        },
+        title: {
+            ...base_styles.title,
+        }
+    }),
+    tertiary : StyleSheet.create({
+        title: {
+            ...base_styles.title,
+            color: "gray",
         }
     })
 }

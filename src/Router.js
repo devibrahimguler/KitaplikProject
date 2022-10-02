@@ -10,6 +10,7 @@ import Login from './page/Login';
 import Register from './page/Register';
 import Share from './page/Share';
 import EditBook from './page/EditBook';
+import EditProfile from './page/EditProfile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -41,8 +42,8 @@ const MainStack = () => {
         }}
       />
       <Tab.Screen
-        name="ProfilePage"
-        component={Profile}
+        name="ProfileScreen"
+        component={ProfileStack}
         options={{
           title: "Profile",
           tabBarIcon: () => {
@@ -73,6 +74,28 @@ const ShareStack = () => {
         component={EditBook}
         options={{
           headerTitle: "Share Book",
+          presentation: 'fullScreenModal',
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ProfilePage"
+        component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="EditProfilePage"
+        component={EditProfile}
+        options={{
+          headerTitle: "Edit Profile",
           presentation: 'fullScreenModal',
         }}
       />
