@@ -5,8 +5,8 @@ import {Formik} from 'formik';
 import {useDispatch} from 'react-redux';
 import {launchImageLibrary} from 'react-native-image-picker';
 import auth from '@react-native-firebase/auth';
-import storage from "@react-native-firebase/storage";
-import firestore from "@react-native-firebase/firestore";
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -47,39 +47,40 @@ const EditProfile = ({navigation, route}) => {
   const addImage = async (username, pathToFile) => {
     const reference = storage().ref(`user/${auth().currentUser.uid}.png`);
 
-      await reference.putFile(pathToFile);
+    await reference.putFile(pathToFile);
 
-      const url = await storage()
-        .ref(`user/${auth().currentUser.uid}.png`)
-        .getDownloadURL();
-      var object = {
-        username: username,
-        imageUrl: url,
-      };
-      firestore().collection('user').doc(auth().currentUser.uid).update(object);
-      setImgUrl(url);
-      setLoading(false);
-  }
-  const editProfile = (values) => {
+    const url = await storage()
+      .ref(`user/${auth().currentUser.uid}.png`)
+      .getDownloadURL();
+    var object = {
+      username: username,
+      imageUrl: url,
+    };
+    firestore().collection('user').doc(auth().currentUser.uid).update(object);
+    setImgUrl(url);
+    setLoading(false);
+  };
+  const toBack = () => {
+    navigation.goBack();
+  };
+  const editProfile = values => {
     setLoading(true);
-    if(values.username && imgUrl != userData.imageUrl) {
+    if (values.username && imgUrl != userData.imageUrl) {
       addImage(values.username, imgUrl);
       setLoading(false);
-      navigation.goBack();
-    }
-    else if (imgUrl != userData.imageUrl) {
+      toBack();
+    } else if (imgUrl != userData.imageUrl) {
       addImage(userData.username, imgUrl);
       setLoading(false);
-      navigation.goBack();
-    }
-    else if(values.username) {
+      toBack();
+    } else if (values.username) {
       // codu temizle ve username değişirse paylaşılanlarında usernamini değiştir.
       var object = {
         username: values.username,
       };
       firestore().collection('user').doc(auth().currentUser.uid).update(object);
       setLoading(false);
-      navigation.goBack();
+      toBack();
     }
   };
 
@@ -108,7 +109,7 @@ const EditProfile = ({navigation, route}) => {
           </>
         )}
       </Formik>
-      <Button title={'Vazgeç'} onPress={() => {}} animating={loading} />
+      <Button title={'Vazgeç'} onPress={toBack} animating={loading} />
       <Button title={'Çıkış Yap'} onPress={toLogOut} animating={loading} />
     </View>
   );
