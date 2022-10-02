@@ -34,5 +34,19 @@ export default {
             ...base_styles.title,
             color: "gray",
         }
-    })
+    }),
+    selection : StyleSheet.create({
+        ...base_styles,
+        title: {
+            ...base_styles.title,
+            color: "red",
+        }
+    }),
+    none_selection : StyleSheet.create({
+        ...base_styles,
+        title: {
+            ...base_styles.title,
+            color: "gray",
+        }
+    }),
 }
